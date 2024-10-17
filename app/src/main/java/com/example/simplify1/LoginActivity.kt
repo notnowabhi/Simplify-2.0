@@ -126,7 +126,13 @@ fun layoutLogin() {
 
         ) {
             Button(
-                onClick = { onGoogleLoginClick(context) }, //onClick to be defined
+                onClick = {
+                    onGoogleLoginClick(context)
+
+                    val intent = Intent(context, PermissionsPage::class.java)
+                    context.startActivity(intent)
+
+                          }, //onClick to be defined
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
@@ -160,22 +166,22 @@ fun layoutLogin() {
             horizontalArrangement = Arrangement.End,
             //verticalAlignment = Alignment.Bottom
         ) {
-            ExtendedFloatingActionButton(
-                onClick = {
-                    val intent = Intent(context, PermissionsPage::class.java)
-                    context.startActivity(intent)
-                },
-                icon = {
-                    Image(
-                        painter = painterResource(id = R.drawable.baseline_add_24),
-                        contentDescription = "plus icon for fab"
-                    )
-                },
-                text = { Text(text = "NEXT") },
-                //shape = RoundedCornerShape(12.dp),
-                containerColor = TextOrange,
-                contentColor = Color.Black
-            )
+//            ExtendedFloatingActionButton(
+//                onClick = {
+//                    val intent = Intent(context, PermissionsPage::class.java)
+//                    context.startActivity(intent)
+//                },
+//                icon = {
+//                    Image(
+//                        painter = painterResource(id = R.drawable.baseline_add_24),
+//                        contentDescription = "plus icon for fab"
+//                    )
+//                },
+//                text = { Text(text = "NEXT") },
+//                //shape = RoundedCornerShape(12.dp),
+//                containerColor = TextOrange,
+//                contentColor = Color.Black
+//            )
         }
     }
 

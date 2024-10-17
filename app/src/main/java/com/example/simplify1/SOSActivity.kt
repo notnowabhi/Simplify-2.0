@@ -36,6 +36,7 @@ class SOSActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     SOSLayout()
+                    //ShowLocationInfo()
                 }
             }
         }
@@ -49,6 +50,23 @@ fun SOSLayout() {
     val scope = rememberCoroutineScope()
     val helpRequirement = remember { mutableStateOf(TextFieldValue("")) }
     val helpMessage : String = helpRequirement.value.text
+
+    // Retrieve the first name from SharedPreferences
+    val firstName = SharedPreferencesManager.getFirstName(context)
+
+    // Use the firstName if it's available
+    LaunchedEffect(firstName) {
+        if (firstName != null) {
+            println("User's First Name: $firstName")
+            // Optionally show a Snackbar or update UI with the firstName
+            scope.launch {
+                snackbarHostState.showSnackbar(
+                    message = "Welcome, $firstName!",
+                    actionLabel = "Dismiss"
+                )
+            }
+        }
+    }
 
     // Function to show the Snackbar when the SOS button is clicked
     fun onSOSButtonClick() {
@@ -65,7 +83,7 @@ fun SOSLayout() {
         context.startActivity(intent)
     }
     
-    fun onCheckDroneStatusButtonclick(){
+    fun onCheckDroneStatusButtonClick(){
         val intent = Intent(context, DroneStatusActivity::class.java) //TODO change landing page
         context.startActivity(intent)
     }
@@ -87,13 +105,22 @@ fun SOSLayout() {
             )
         }
 
-        Spacer(modifier = Modifier.size(62.dp))
+        Spacer(modifier = Modifier.size(46.dp))
 
         // Box for texts
         Box(
             modifier = Modifier.padding(start = 29.dp)
         ) {
             Column {
+
+                Text(
+                    text = "WELCOME $firstName !",
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+
+                Spacer(modifier = Modifier.size(16.dp))
+
                 Text(
                     text = "Uh-Oh !",
                     fontWeight = FontWeight.Bold,
@@ -125,19 +152,17 @@ fun SOSLayout() {
 
                 Spacer(modifier = Modifier.size(16.dp))
 
-                Text(
-                    text = "WHAT ISSUE ARE YOU FACING?",
-                    fontSize = 16.sp,
-                    color = Color.White
-                )
-
-                Spacer(modifier = Modifier.size(16.dp))
-
                 TextField(
                     modifier = Modifier
                         .border(2.dp, TextOrange, RoundedCornerShape(12.dp)),
                     value = helpRequirement.value,
                     onValueChange = { helpRequirement.value = it },
+                    label = {
+                        Text(
+                            text = "WHAT DISASTER ARE YOU FACING?",
+                            color = Color.White
+                        )
+                    },
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.colors(
                         unfocusedContainerColor = Color(0x60E75C26),
@@ -190,7 +215,7 @@ fun SOSLayout() {
             }
             
             Button(
-                onClick = { onCheckDroneStatusButtonclick() },
+                onClick = { onCheckDroneStatusButtonClick() },
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = TextOrange)
             ) {

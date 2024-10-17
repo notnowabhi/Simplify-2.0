@@ -1,7 +1,9 @@
 package com.example.simplify1
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -24,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -46,11 +49,48 @@ class GetLocationPage : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     // here
+                    ShowLocationInfo()
                 }
             }
         }
     }
 }
+
+
+// Function to get location from SharedPreferences and pass it to another function
+fun performActionWithLocation(context: Context) {
+    val locationName = SharedPreferencesManager.getLocationName(context)
+
+    if (locationName != null) {
+        // Pass the location to some function
+        someFunction(locationName) // this will be replaced with the call to the SC function
+    } else {
+        // Handle the case where the location is not available
+        Toast.makeText(context, "Location not available", Toast.LENGTH_SHORT).show()
+    }
+}
+
+// Example function that takes a location string as a parameter
+fun someFunction(location: String) {// this is just a Proxy for the SC function
+    // use the location and pass it to the
+    println("Location passed to the function: $location")
+}
+
+
+@Composable
+fun ShowLocationInfo() {
+    val context = LocalContext.current
+//    val locationName = SharedPreferencesManager.getLocationName(context)
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        performActionWithLocation(context);
+    }
+}
+
 
 @Composable
 fun locationLayout(){

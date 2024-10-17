@@ -83,12 +83,17 @@ class MainActivity : ComponentActivity() {
                 val geocoder = Geocoder(this, Locale.getDefault())
                 val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                 fetchedCityName = addresses?.get(0)?.locality ?: "Unknown"
+
+                // Store the fetched city name in SharedPreferences
+                SharedPreferencesManager.storeLocationName(applicationContext, fetchedCityName!!)
+
                 Toast.makeText(this, "City: $fetchedCityName", Toast.LENGTH_SHORT).show()
             } ?: run {
                 Toast.makeText(this, "Unable to fetch location", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
     fun getFetchedCityName(): String? {
         return fetchedCityName
@@ -219,7 +224,8 @@ fun layoutMain(userDao: UserDataDao) {
                         focusedContainerColor = Color(0xff522da2),
                         cursorColor = Color(0xff73ec8b),
                         focusedTextColor = Color.White,
-                        unfocusedTextColor = Color(0xff73ec8b)
+                        unfocusedTextColor = Color(0xff73ec8b),
+
                     )
                 )
 
@@ -254,6 +260,9 @@ fun layoutMain(userDao: UserDataDao) {
                 (context as MainActivity).addUser(firstName, lastName, phoneNumberValue, lastLocation, userDao)
 
                 val intent = Intent(context, SOSActivity::class.java)
+
+                //val intent = Intent(context, GetLocationPage::class.java) //this was just the check
+
                 context.startActivity(intent)
             },
             icon = {

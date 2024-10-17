@@ -95,6 +95,7 @@ fun layoutSplash() {
     LaunchedEffect(Unit) {
         delay(2000) // Delay for 2 seconds
 //        val context = LocalContext.current
+
         val intent = Intent(context, LoginActivity::class.java)
         context.startActivity(intent)
         (context as? ComponentActivity)?.finish() // Optionally finish the activity

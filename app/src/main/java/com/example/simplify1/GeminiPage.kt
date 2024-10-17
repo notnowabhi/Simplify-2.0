@@ -32,6 +32,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -72,6 +73,11 @@ fun SimpleUI(model: GenerativeModel, promptPrefix: String, promptSuffix: String)
     var inputText = remember { mutableStateOf("") } // Mutable state for input text
     var displayedText = remember { mutableStateOf("") } // Mutable state for displayed text
 
+    val context = LocalContext.current
+
+    // Retrieve the first name from SharedPreferences
+    val firstName = SharedPreferencesManager.getFirstName(context)
+
     val coroutineScope = rememberCoroutineScope()
 
 
@@ -92,8 +98,17 @@ fun SimpleUI(model: GenerativeModel, promptPrefix: String, promptSuffix: String)
     Column(
         modifier = Modifier
             .padding(29.dp)
-            .offset(y = 131.dp)
+            .offset(y = 115.dp)
+
     ) {
+
+        Text(
+            text = "WELCOME $firstName !",
+            fontSize = 16.sp,
+            color = Color.White
+        )
+
+        Spacer(modifier = Modifier.size(16.dp))
         Text(
             text = "What Should",
             fontWeight = FontWeight.Bold,

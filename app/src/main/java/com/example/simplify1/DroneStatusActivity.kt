@@ -64,6 +64,9 @@ class DroneStatusActivity : ComponentActivity() {
 fun layoutDroneStatus(){
     val context = LocalContext.current
 
+    // Retrieve the first name from SharedPreferences
+    val firstName = SharedPreferencesManager.getFirstName(context)
+
     Column(
         modifier = Modifier
             .background(CommonBackground)
@@ -82,13 +85,22 @@ fun layoutDroneStatus(){
             )
         }
 
-        Spacer(modifier = Modifier.size(62.dp))
+        Spacer(modifier = Modifier.size(46.dp))
 
         Box( // box for texts
             modifier = Modifier
                 .padding(start = 29.dp)
         ) {
             Column {
+
+                Text(
+                    text = "WELCOME $firstName !",
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+
+                Spacer(modifier = Modifier.size(16.dp))
+
                 Text(
                     text = "See Your",
                     fontWeight = FontWeight.Bold,

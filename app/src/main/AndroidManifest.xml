@@ -23,6 +23,7 @@
         <activity android:name=".PermissionsPage"></activity>
         <activity android:name=".SOSActivity"></activity>
         <activity android:name=".DroneStatusActivity"></activity>
+        <activity android:name=".GetLocationPage"></activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true"
