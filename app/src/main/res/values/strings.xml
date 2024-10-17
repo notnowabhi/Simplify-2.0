@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ReliefChain</string>
+    <string name="gemini_prompt_prefix">"Provide important safety checkpoints and tips for a person to keep in mind when facing the natural disaster: "</string>
+    <string name="gemini_prompt_suffix">. Give the response in a very short way so that i just have 10 key points to check and they will help me survive in good health.</string>
+</resources>
